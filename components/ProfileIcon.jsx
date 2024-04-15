@@ -15,6 +15,7 @@ export default function ProfileIcon() {
           height={40}
           className="rounded-full"
         />
+
         <button onClick={() => signOut()}>Sign Out</button>
       </div>
     );

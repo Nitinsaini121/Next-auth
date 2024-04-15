@@ -1,13 +1,35 @@
+"use client";
 import Link from "next/link";
-import ProfileIcon from "./ProfileIcon";
+import { usePathname } from "next/navigation";
 
-export default function Navbar() {
+const NavLinks = [
+  { id: 1, name: "Home", path: "/homepage" },
+  { id: 2, name: "Blog", path: "/blog" },
+  { id: 3, name: "About", path: "/about" },
+];
+
+const Navbar = () => {
+  const pathname = usePathname();
+  const isActive = (path) => path === pathname;
+
   return (
-    <nav className="flex items-center justify-between fixed left-0 right-0 px-8 h-14 bg-blue-500 text-white">
-      <Link className="font-bold" href={"/"}>
-        GTCoding.
-      </Link>
-      <ProfileIcon />
+    <nav>
+      <ul>
+        {NavLinks.map((link) => {
+          return (
+            <li key={link.id} className={isActive(link.path) ? "active" : ""}>
+              {link.name}
+              {/* <Link
+                href={""}
+                
+              >
+              </Link> */}
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
-}
+};
+
+export default Navbar;

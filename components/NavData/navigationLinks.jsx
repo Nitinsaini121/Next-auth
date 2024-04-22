@@ -31,8 +31,8 @@ export const NavLinks = [
 
   {
     title: "Starred",
-    path: "/Starred",
-    subChild: [{ id: 3, name: "Starred", path: "/Starred" }],
+    path: "/starred",
+    subChild: [{ id: 3, name: "Starred", path: "/starred" }],
   },
 
   {

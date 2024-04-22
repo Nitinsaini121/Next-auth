@@ -47,7 +47,7 @@ function HomePage() {
   const newsFunction = async () => {
     try {
       const news = await axios.get(
-        "https://newsapi.org/v2/everything?q=tesla&from=2024-03-16&apiKey=9a9336f0077d4688a847f47edd21c597"
+        "https://newsapi.org/v2/everything?q=tesla&from=2024-03-17&apiKey=9a9336f0077d4688a847f47edd21c597"
       );
       setData(news.data.articles);
     } catch (error) {

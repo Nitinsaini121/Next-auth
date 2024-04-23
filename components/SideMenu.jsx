@@ -88,6 +88,15 @@ export default function SideMenu() {
   const pathname = usePathname();
   const isActive = (path) => path === pathname;
 
+  const [drawerValue , setDrawerValue] = React.useState(false)
+  const forDynamically = (value) => {
+    console.log("value", value);
+
+    let active = pathname.includes(value);
+    console.log("forDynamically", active);
+    setDrawerValue(active)
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -102,6 +111,8 @@ export default function SideMenu() {
           >
             <MenuIcon />
           </IconButton>
+
+          {/* Nav */}
           <Typography
             variant="h6"
             noWrap
@@ -109,7 +120,7 @@ export default function SideMenu() {
             className="flex items-center justify-between fixed left-10 right-0 px-12 h-14 text-white"
           >
             <Link className="font-bold items-center" href={"/"}>
-              CoDe.
+              CoDe:
             </Link>
             <ProfileIcon />
           </Typography>
@@ -138,26 +149,34 @@ export default function SideMenu() {
           </IconButton>
         </DrawerHeader>
         <Divider />
+
         <List>
           {NavLinks?.map((text, index) => (
             <ListItem key={index} disablePadding>
-              <ListItemButton className={isActive(text.path) ? "active" : ""}>
-                <ListItemIcon>
+              <ListItemButton>
+                {/* <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
+                </ListItemIcon> */}
                 <Accordion>
                   <AccordionSummary
-                    className={isActive(text.path) ? "active" : ""}
+                    style={{ fontSize: " 25px" }}
+                    // className={isActive(text.path) ? "active" : ""}
+                    className={drawerValue ? "active" : ""}
+                    // className={isOkay ? "active" : ""}
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1-content"
                     id="panel1-header"
                   >
-                    {text.title}{" "}
+                    {text.title}
                   </AccordionSummary>
                   {text.subChild.map((value) => (
                     <Link href={value.path}>
                       <AccordionDetails
-                        className={isActive(value.path) ? "active" : ""}
+                        onClick={(e) =>
+                          forDynamically(e.currentTarget.innerHTML)
+                        }
+                        // className={isActive(value.path) ? "active" : ""}
+                        className={drawerValue ? "active" : ""}
                       >
                         {value.name}
                       </AccordionDetails>

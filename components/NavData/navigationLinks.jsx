@@ -5,8 +5,13 @@ export const NavLinks = [
     subChild: [
       {
         id: 1,
-        name: "Home",
+        name: "SubHome1",
         path: "/homepage",
+      },
+      {
+        id: 1,
+        name: "SubHome2",
+        path: "/subhome",
       },
     ],
   },
@@ -24,7 +29,7 @@ export const NavLinks = [
       {
         id: 2,
         name: "Inbox",
-        path: "/inbox",
+        path: "/inbox2",
       },
     ],
   },
@@ -32,7 +37,10 @@ export const NavLinks = [
   {
     title: "Starred",
     path: "/starred",
-    subChild: [{ id: 3, name: "Starred", path: "/starred" }],
+    subChild: [
+      { id: 3, name: "Starred", path: "/starred" },
+      { id: 3, name: "Starred", path: "/starred2" },
+    ],
   },
 
   {

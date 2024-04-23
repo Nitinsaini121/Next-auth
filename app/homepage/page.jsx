@@ -20,6 +20,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Box } from "@mui/material";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -47,7 +48,7 @@ function HomePage() {
   const newsFunction = async () => {
     try {
       const news = await axios.get(
-        "https://newsapi.org/v2/everything?q=tesla&from=2024-03-17&apiKey=9a9336f0077d4688a847f47edd21c597"
+        "https://newsapi.org/v2/everything?q=tesla&from=2024-04-651&apiKey=9a9336f0077d4688a847f47edd21c597"
       );
       setData(news.data.articles);
     } catch (error) {
@@ -63,78 +64,79 @@ function HomePage() {
   }, [status, search]);
   return (
     <div className="items-center">
-      <div>
+      <div className="flex justify-center">
         <input
           style={{ border: "2px solid gray" }}
           type="text"
           onChange={(e) => setSearch(e.target.value)}
         />
-        {"     "}
         <button className="bg-slate-700-600-600  text-black-100">search</button>
       </div>
       <br></br>
 
       {data.map((data) => (
-        <Card sx={{ maxWidth: 345 }}>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                N
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title={data.title}
-            subheader={data.publishedAt}
-          />
-          <CardMedia
-            component="img"
-            height="194"
-            image={data.urlToImage}
-            alt="Paella dish"
-          />
-          <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              {data.description}
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </ExpandMore>
-          </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Box className="flex justify-evenly ">
+          <Card sx={{ maxWidth: 345 }}>
+            <CardHeader
+              avatar={
+                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                  N
+                </Avatar>
+              }
+              action={
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              }
+              title={data.title}
+              subheader={data.publishedAt}
+            />
+            <CardMedia
+              component="img"
+              height="194"
+              image={data.urlToImage}
+              alt="Paella dish"
+            />
             <CardContent>
-              <Typography paragraph>source: {data.source.name}</Typography>
-              <Link href={data.url}>
-                {" "}
-                <Typography className="text-blue-700" paragraph>
-                  Read more : {data.url}
-                </Typography>
-              </Link>
-              <Typography paragraph>{data.content}</Typography>
-
-              <Typography>
-                Set aside off of the heat to let rest for 10 minutes, and then
-                serve.
+              <Typography variant="body2" color="text.secondary">
+                {data.description}
               </Typography>
             </CardContent>
-          </Collapse>
-        </Card>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton aria-label="share">
+                <ShareIcon />
+              </IconButton>
+              <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+              >
+                <ExpandMoreIcon />
+              </ExpandMore>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <CardContent>
+                <Typography paragraph>source: {data.source.name}</Typography>
+                <Link href={data.url}>
+                  {" "}
+                  <Typography className="text-blue-700" paragraph>
+                    Read more : {data.url}
+                  </Typography>
+                </Link>
+                <Typography paragraph>{data.content}</Typography>
+
+                <Typography>
+                  Set aside off of the heat to let rest for 10 minutes, and then
+                  serve.
+                </Typography>
+              </CardContent>
+            </Collapse>
+          </Card>
+        </Box>
       ))}
     </div>
   );

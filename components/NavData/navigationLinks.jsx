@@ -1,55 +1,60 @@
 export const NavLinks = [
   {
     title: "Home",
-    path: "/homepage",
+    path: "/home",
+    value: "home",
     subChild: [
       {
         id: 1,
-        name: "SubHome1",
-        path: "/homepage",
+        name: "News",
+        path: "/home/news",
+        value: "news",
+      },
+      {
+        id: 2,
+        name: "Chat",
+        path: "/home/chat",
+        value: "chat",
+      },
+
+      {
+        id: 3,
+        name: "Music",
+        path: "/home/index",
+        value: "index",
       },
       {
         id: 1,
         name: "SubHome2",
         path: "/subhome",
+        value: "subhome",
       },
     ],
   },
-
   {
-    title: "Inbox",
-    path: "/inbox",
-
+    title: "Posts",
+    path: "/posts",
+    value: "posts",
     subChild: [
       {
-        id: 2,
-        name: "Inbox",
-        path: "/inbox",
+        id: 1,
+        name: "Braking News",
+        path: "/posts/braking",
+        value: "braking",
       },
       {
         id: 2,
-        name: "Inbox",
-        path: "/inbox2",
+        name: "Recent Chat",
+        path: "/posts/recent",
+        value: "recent",
+      },
+      {
+        id: 3,
+        name: "Soft Music",
+        path: "/posts/softmusic",
+        value: "softmusic",
       },
     ],
   },
-
-  {
-    title: "Starred",
-    path: "/starred",
-    subChild: [
-      { id: 3, name: "Starred", path: "/starred" },
-      { id: 3, name: "Starred", path: "/starred2" },
-    ],
-  },
-
-  {
-    title: "Drafts",
-    subChild: [{ id: 4, name: "Drafts", path: "/Drafts" }],
-  },
-
-  {
-    title: "Trash",
-    subChild: [{ id: 6, name: "Trash", path: "/Trash" }],
-  },
+  
 ];

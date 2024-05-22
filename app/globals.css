@@ -4,5 +4,45 @@
 
 
 .active {
-    color: rgb(20, 130, 233);
+    color: rgb(243, 82, 33);
 }
+.forhover:hover {
+  transition: all 3s;
+
+}
+.imageheight  {
+  height: 141px;
+}
+.inputvalu {
+
+    border: 5px solid #4eaee6;
+    width: 467px;
+    border-radius: 18px;
+
+}
+#griddata{
+  display: flex;
+}
+/* Style the header */
+.header {
+    padding: 10px 16px;
+    background: #555;
+    color: #f1f1f1;
+  }
+  
+  /* Page content */
+  .content {
+    padding: 16px;
+  }
+  
+  /* The sticky class is added to the header with JS when it reaches its scroll position */
+  .sticky {
+    position: fixed;
+    top: 10;
+    width: 100%
+  }
+  
+  /* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+  .sticky + .content {
+    padding-top: 102px;
+  }

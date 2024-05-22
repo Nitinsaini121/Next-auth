@@ -15,9 +15,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import Link from "next/link";
 import ProfileIcon from "./ProfileIcon";
 import { usePathname } from "next/navigation";
@@ -74,9 +71,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function SideMenu() {
+export default function SideMenu({children}) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
+  const [expend, setExpend] = React.useState(false);
+
+  const DrawerHeaderOpenClose = ()=>{
+    setExpend(!expend);
+
+  }
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -86,16 +90,12 @@ export default function SideMenu() {
     setOpen(false);
   };
   const pathname = usePathname();
-  const isActive = (path) => path === pathname;
 
-  const [drawerValue , setDrawerValue] = React.useState(false)
-  const forDynamically = (value) => {
-    console.log("value", value);
-
-    let active = pathname.includes(value);
-    console.log("forDynamically", active);
-    setDrawerValue(active)
-  };
+  // React.useEffect(() => {
+  //   if (NavLinks?.map((text, index) => pathname.includes(text.value) === true)) {
+  //     setExpend(true);
+  //   }
+  // }, []);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -149,20 +149,23 @@ export default function SideMenu() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-
+ 
         <List>
-          {NavLinks?.map((text, index) => (
-            <ListItem key={index} disablePadding>
+          {NavLinks?.map((text, index) => {
+              const defaultExpanded = text.subChild.some((value) =>
+              pathname.includes(value.path)
+            );
+
+            const isExpanded = expend[index] !== undefined ? expend[index] : defaultExpanded;
+        return    (<ListItem key={index}>
               <ListItemButton>
-                {/* <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon> */}
-                <Accordion>
+                <Accordion expanded={expend} key={index} >
                   <AccordionSummary
+                    className={
+                      pathname.includes(text.value) === true ? "active" : ""
+                    }
+                    onClick ={DrawerHeaderOpenClose}
                     style={{ fontSize: " 25px" }}
-                    // className={isActive(text.path) ? "active" : ""}
-                    className={drawerValue ? "active" : ""}
-                    // className={isOkay ? "active" : ""}
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1-content"
                     id="panel1-header"
@@ -172,11 +175,12 @@ export default function SideMenu() {
                   {text.subChild.map((value) => (
                     <Link href={value.path}>
                       <AccordionDetails
-                        onClick={(e) =>
-                          forDynamically(e.currentTarget.innerHTML)
+                        value={value.id}
+                        className={
+                          pathname.includes(value.value) === true
+                            ? "active"
+                            : ""
                         }
-                        // className={isActive(value.path) ? "active" : ""}
-                        className={drawerValue ? "active" : ""}
                       >
                         {value.name}
                       </AccordionDetails>
@@ -184,14 +188,15 @@ export default function SideMenu() {
                   ))}
                 </Accordion>
               </ListItemButton>
-            </ListItem>
-          ))}
+            </ListItem>)
+})}
         </List>
 
         <Divider />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
+        {children}
       </Main>
     </Box>
   );
